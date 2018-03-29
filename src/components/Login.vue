@@ -11,7 +11,7 @@
             <img src="../../static/images/zheng06.jpg" alt="">
         </div>
         <div class="dd-input">
-            <ddinput label="用户名：" v-model="userName" class="dd" type="tel"></ddinput>
+            <ddinput label="用户名：" v-model="phone" class="dd" type="tel"></ddinput>
             <ddinput label="密码：" type="password" v-model="pwd"></ddinput>
         </div>
         <div class="enroll">
@@ -30,24 +30,22 @@
         data() {
             return {
                 label: '',
-                userName:'15690511738',
-                pwd:'666666',
+                phone:'18911938014',
+                pwd:'123456',
             }
         },
         methods: {
             login() {
                 this.$axios.post('getLogin', {
                     pwd: this.pwd,
-                    userName: this.userName,
-                }, {
-                    withCredentials: true
-
+                    phone: this.phone,
                 })
                     .then((response) => {
                         if(response.data.ret){
                             // this.$router.push('/index');
                             alert(response.data.msg)
-                            this.$router.push('/mydidi')
+                            // this.$router.push('/mydidi')
+                            this.$router.push({ path: '/mydidi', query: { phone:this.phone}})
                         }else{
                             alert(response.data.msg)
                         }

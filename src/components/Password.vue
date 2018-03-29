@@ -14,11 +14,11 @@
             </div>
             <div>
                 <label for="new-password" class="form-span">新密码：</label>
-                <input type="tel" class="from-input" id="new-password" v-model="newPwd">
+                <input type="tel" class="from-input" id="new-password" v-model="newpwd">
             </div>
             <div>
                 <label for="renewname" class="form-span">确认新密码：</label>
-                <input type="tel" class="from-input" id="renewname" v-model="newPwd">
+                <input type="tel" class="from-input" id="renewname" v-model="newpwd">
             </div>
         </form>
         <div class="enroll">
@@ -34,26 +34,24 @@
         data(){
             return{
                 pwd: '',
-                newPwd: ''
+                newpwd: ''
             }
         },
         methods: {
             genggai(){
                 this.$axios.post('psodUpdate', {
                     pwd: this.pwd,
-                    newPwd: this.newPwd,
-                }, {
-                    withCredentials: true
-
+                    newpwd: this.newpwd,
                 })
                     .then((response) => {
                         console.log(response)
-                        if(response.data.code){
+                        if(response.data.code==200){
                             // this.$router.push('/index');
                             alert("修改成功，请重新登录");
                             this.$router.push('/login')
                         }else{
                             alert(response.data.msg)
+                             this.$router.push('/login')
                         }
                     })
                     .catch(function (error) {

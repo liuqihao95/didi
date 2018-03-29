@@ -10,7 +10,9 @@
         <div class="nav">
             <div>
                 <img src="../static/images/01.jpg" alt="">
-                <h2>王世超</h2>
+                <!-- <div v-for="(item,index) in arr" :key=index> -->
+                      <h2 v-text="arr.name"></h2>
+                <!-- </div> -->
                 <mt-button type="danger" @click="loginout">退出登录</mt-button>
             </div>
         </div>
@@ -46,14 +48,21 @@ import "../static/init.css";
 export default {
   name: "mydidi",
   components: {},
+  data(){
+    return{
+      arr:{}
+    }
+  },
   methods: {
     Islogin() {
       this.$axios
-        .get("getIsLogin")
+        .get("getUser",{phone:this.$route.query.phone})
         .then(res => {
           if (!res.data.ret) {
             alert("你还没有登录，请登录");
             this.$router.push("/login");
+          }else{
+              this.arr=res.data.data[0]
           }
         })
         .catch(function(err) {
@@ -67,7 +76,7 @@ export default {
           {}
         )
         .then(res => {
-          if (!res.data.ret) {
+          if (res.data.ret) {
             alert("退出成功，请登录");
             this.$router.push("/");
           }

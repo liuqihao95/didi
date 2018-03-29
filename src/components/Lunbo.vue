@@ -1,24 +1,31 @@
 <template>
     <div class="liu">
         <mt-swipe>
-            <mt-swipe-item>
-                <img src="../../static/images/01.jpg">
-            </mt-swipe-item>
-            <mt-swipe-item>
-                <img src="../../static/images/02.jpg">
-            </mt-swipe-item>
-            <mt-swipe-item>
-                <img src="../../static/images/03.jpg">
+            <mt-swipe-item v-for="(item,index) in arr" :key='index'>
+                <img :src="item.img">
             </mt-swipe-item>
         </mt-swipe>
     </div>
 </template>
 <script>
     export default {
+        data(){
+            return{
+                arr:[]
+            }
+        },
         methods: {
+             getimage(){
+                this.$axios.get('getImage').then(res=>{
+                    this.arr=res.data.data;
+                })
+            },
             handleChange(index) {
                 console.log(index)
             }
+        },
+         mounted(){
+            this.getimage()
         }
     }
 </script>

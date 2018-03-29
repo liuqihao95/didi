@@ -6,12 +6,12 @@
             </router-link>
         </mt-header>
         <div class="rwp">
-            <div class="content-news" v-for="msg in arr" :key="msg.id">
+            <div class="content-news" v-for="msg in arr" :key="msg._id">
                 <h2 v-text="msg.title">我是标题</h2>
                 <p v-html="msg.contentText">我是内容</p>
-                <h5 v-text="msg.createtime">我是时间</h5>
+                <h5 v-text="msg.createTime">我是时间</h5>
                 <div>
-                    <router-link :to="'/newsitem?id='+msg.id">查看详情</router-link>
+                    <router-link :to="'/newsitem?id='+msg._id">查看详情</router-link>
                 </div>
             </div>
         </div>
@@ -25,20 +25,19 @@
         name: 'news',
         data: function () {
             return {
-                arr: []
+                arr:{}
             }
         },
         methods: {
             goto(){
-                console.log(22222222222);
                 for(var i=0;i<this.arr.length;i++){
-                    console.log(this.arr[i].createtime);
+                    // console.log(this.arr[i].createtime);
                     var timestamp3 = 1403058804;
                     var newDate = new Date();
                     newDate.setTime(timestamp3 * 1000);
-                    console.log(newDate.toLocaleDateString()); // 2014年6月18日
-                    console.log(newDate.toLocaleString()); // 2014年6月18日 上午10:33:24
-                    console.log(newDate.toLocaleTimeString()); // 上午10:33:24
+                    // console.log(newDate.toLocaleDateString()); // 2014年6月18日
+                    // console.log(newDate.toLocaleString()); // 2014年6月18日 上午10:33:24
+                    // console.log(newDate.toLocaleTimeString()); // 上午10:33:24
                 }
             },
             getnew(){
@@ -57,21 +56,20 @@
                 })
             },
             getNews() {
-                axios.get('http://didi.yaojunrong.com/api/article/get', {withCredentials: true
-                },)
+                this.$axios.get('getArticle')
                     .then((res) => {
                         this.arr = res.data.data;
-                        for(var i=0;i<this.arr.length;i++){
-                            // console.log(this.arr[i].createtime);
-                            var timestamp3 = this.arr[i].createtime;
-                            var newDate = new Date();
-                            newDate.setTime(timestamp3 * 1000);
-                            // console.log(newDate.toLocaleDateString()); // 2014年6月18日
-                            // console.log(newDate.toLocaleString()); // 2014年6月18日 上午10:33:24
-                            // console.log(newDate.toLocaleTimeString()); // 上午10:33:24
-                            this.arr[i].createtime=newDate.toLocaleString()
-                        }
-                        // console.log(res);
+                        // for(var i=0;i<this.arr.length;i++){
+                        //     // console.log(this.arr[i].createtime);
+                        //     var timestamp3 = this.arr[i].createtime;
+                        //     var newDate = new Date();
+                        //     newDate.setTime(timestamp3 * 1000);
+                        //     // console.log(newDate.toLocaleDateString()); // 2014年6月18日
+                        //     // console.log(newDate.toLocaleString()); // 2014年6月18日 上午10:33:24
+                        //     // console.log(newDate.toLocaleTimeString()); // 上午10:33:24
+                        //     this.arr[i].createtime=newDate.toLocaleString()
+                        // }
+                        // // console.log(res);
                     })
                     .catch(function (err) {
                         console.log(err);

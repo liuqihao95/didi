@@ -24,7 +24,7 @@ export default {
       this.$axios
         .get("getArticle",{ id:this.$route.query.id})
         .then(res => {
-          console.log(res);
+          // console.log(res);
           this.lol = res.data.data[0];
         })
         .catch(function(err) {

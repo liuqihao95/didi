@@ -6,10 +6,10 @@
             </router-link>
         </mt-header>
         <div class="rwp">
-            <div class="content-news" v-for="msg in arr" :key="msg.id">
+            <div class="content-news" v-for="msg in arr" :key="msg._id">
                 <img :src="msg.img" alt="">
-                <p v-text="msg.content">我是标题</p>
-                <p v-text="msg.site">我是时间</p>
+                <p v-text="msg.address">我是标题</p>
+                <p v-text="msg.createTime">我是时间</p>
                 <p v-text="msg.title">我是时间</p>
             </div>
         </div>
@@ -30,7 +30,6 @@
                 this.$axios.get('getProjects')
                     .then((res) => {
                         this.arr = res.data.data;
-                        // console.log(res)
                     })
                     .catch(function (err) {
                         console.log(err);

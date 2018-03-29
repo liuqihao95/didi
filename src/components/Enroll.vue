@@ -77,15 +77,11 @@
                     idNum: this.idNum,
                     status: this.status,
                     level: this.level,
-                }, {
-                    withCredentials: true
-
-                })
-                    .then((response) => {
-                        console.log(response.data)
-                        if (response.data.ret) {
+                }).then((res) => {
+                        // console.log(res.data)
+                        if (res.data.ret) {
                             // this.$router.push('/index');
-                            alert(response.data.msg)
+                            alert(res.data.msg)
                             this.$router.push('/enroll')
                         } else {
                             alert("注册失败")

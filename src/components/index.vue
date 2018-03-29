@@ -4,7 +4,6 @@
             <router-link to="/" slot="left">
             </router-link>
         </mt-header>
-        <!--<router-view></router-view>-->
         <hl></hl>
         <div class="last">
             <div class="rwp">

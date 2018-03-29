@@ -10,12 +10,8 @@
                 <span>请输入要查询的页数</span>
                 <input type="text" v-model="pn" @keyup.enter="getcustomer">
             </label>
-            <label>
-                <span>请输入要查找的姓名</span>
-                <input type="text" v-model="userName" @keyup.enter="getcustomer">
-            </label>
             <button @click="getcustomer" class="chaxun">查询</button>
-            <div class="content-news clearfix" v-for="(msg,index) in arr">
+            <div class="content-news clearfix" v-for="(msg,index) in arr" :key=index>
                 <div>
                     <p><span class="left">客户序号：</span><span class="right" v-text="index+1"></span></p>
                     <p><span class="left">客户名字：</span><span class="right" v-text="msg.name"></span></p>
@@ -39,7 +35,7 @@
             return {
                 arr: [],
                 userName: "",
-                pn: "",
+                pn: "1",
                 level: ""
             };
         },
@@ -48,57 +44,35 @@
                 this.$axios
                     .get("getUserlist", {
                         pn: this.pn,
-                        userName: this.userName
                     })
                     .then(res => {
-                        // console.log(res);
-                        for (var i = 0; i < res.data.data.data.length; i++) {
-                            // switch (res.data.data.data[i].level) {
-                            //     case '0':
-                            //         res.data.data.data[i].level = '潜在客户';
-                            //         break;
-                            //     case '1':
-                            //         res.data.data.data[i].level = '发展客户';
-                            //         break;
-                            //     case '2':
-                            //         res.data.data.data[i].level = '正式客户';
-                            //         break;
-                            //     case '3':
-                            //         res.data.data.data[i].level = ' 有钱客户';
-                            //         break;
-                            //     case '4':
-                            //         res.data.data.data[i].level = '土豪客户';
-                            //         break;
-                            //     default:
-                            //         break
-                            // }
-                            if (res.data.data.data[i].level == "0") {
-                                res.data.data.data[i].level = "潜在客户";
-                            } else if (res.data.data.data[i].level == "1") {
-                                res.data.data.data[i].level = "发展客户";
-                            } else if (res.data.data.data[i].level == "2") {
-                                res.data.data.data[i].level = "正式客户";
-                            } else if (res.data.data.data[i].level == "3") {
-                                res.data.data.data[i].level = " 有钱客户";
+                        for (var i = 0; i < res.data.data.length; i++) {
+                            if (res.data.data[i].level == "0") {
+                                res.data.data[i].level = "潜在客户";
+                            } else if (res.data.data[i].level == "1") {
+                                res.data.data[i].level = "发展客户";
+                            } else if (res.data.data[i].level == "2") {
+                                res.data.data[i].level = "正式客户";
+                            } else if (res.data.data[i].level == "3") {
+                                res.data.data[i].level = " 有钱客户";
                             } else {
-                                res.data.data.data[i].level = "土豪客户";
+                                res.data.data[i].level = "土豪客户";
                             }
                         }
-                        for (var j = 0; j < res.data.data.data.length; j++) {
-                            if (res.data.data.data[j].status == "0") {
-                                res.data.data.data[j].status = "钻石会员";
-                            } else if (res.data.data.data[j].status == "1") {
-                                res.data.data.data[j].status = "白金会员";
-                            } else if (res.data.data.data[j].status == "2") {
-                                res.data.data.data[j].status = "黄金会员";
-                            } else if (res.data.data.data[j].status == "3") {
-                                res.data.data.data[j].status = "白银会员";
+                        for (var j = 0; j < res.data.data.length; j++) {
+                            if (res.data.data[j].status == "0") {
+                                res.data.data[j].status = "钻石会员";
+                            } else if (res.data.data[j].status == "1") {
+                                res.data.data[j].status = "白金会员";
+                            } else if (res.data.data[j].status == "2") {
+                                res.data.data[j].status = "黄金会员";
+                            } else if (res.data.data[j].status == "3") {
+                                res.data.data[j].status = "白银会员";
                             } else {
-                                res.data.data.data[j].status = "黄铜会员";
+                                res.data.data[j].status = "黄铜会员";
                             }
                         }
-                        // console.log(res);
-                        this.arr = res.data.data.data;
+                        this.arr = res.data.data
                     })
                     .catch(function (error) {
                         console.log(error);
